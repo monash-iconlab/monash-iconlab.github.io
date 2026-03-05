@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICON Lab – Research Group</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#" class="nav-logo">ICON Lab</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"></button>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="hero" class="hero">
+      <img src="images/ICON_logo_narrower.png" alt="ICON Lab" class="hero-logo">
+    </section>
+
+    <section id="about" class="section section-about">
+      <div class="container">
+        <h2 class="section-title">About</h2>
+        <div class="about-content">
+          <h3 class="about-institution">Your Institution Name</h3>
+          <p class="about-text">
+            ICON Lab is a research group focused on [brief description of your lab's mission and research areas].
+            We aim to [key goals]. Our work spans [relevant domains].
+          </p>
+          <h4 class="about-heading">Research Interests</h4>
+          <ul class="about-interests">
+            <li>Research area 1</li>
+            <li>Research area 2</li>
+            <li>Research area 3</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="team" class="section section-team">
+      <div class="container">
+        <h2 class="section-title">Team</h2>
+        <!-- Director: Yihai Fang — photo left, intro right, same card style as Members -->
+        <h3 class="team-subsection">Director</h3>
+        <div class="team-row-featured team-card team-card-director">
+          <div class="team-featured-photo">
+            <img src="images/team/yihai-fang.png" alt="Yihai Fang" class="team-photo" loading="lazy">
+          </div>
+          <div class="team-featured-bio">
+            <h3 class="team-name">Yihai Fang</h3>
+            <p class="team-bio team-bio-featured">Personal introduction for Yihai Fang. You can edit this text in index.html to add his background, research interests, and role in the lab.</p>
+          </div>
+        </div>
+        <!-- Members: three people, photo + one line each -->
+        <h3 class="team-subsection">Members</h3>
+        <div class="team-row-three">
+          <div class="team-card team-card-inline">
+            <img src="images/team/songbo-hu.png" alt="Songbo Hu" class="team-photo" loading="lazy">
+            <h3 class="team-name">Songbo Hu</h3>
+            <p class="team-bio">Brief introduction for Songbo Hu.</p>
+          </div>
+          <div class="team-card team-card-inline">
+            <img src="images/team/leo-yu.png" alt="Leo Yu" class="team-photo" loading="lazy">
+            <h3 class="team-name">Leo Yu</h3>
+            <p class="team-bio">Brief introduction for Leo Yu.</p>
+          </div>
+          <div class="team-card team-card-inline">
+            <img src="images/team/seyed-hallaji.png" alt="Seyed Mostafa Hallaji" class="team-photo" loading="lazy">
+            <h3 class="team-name">Seyed Mostafa Hallaji</h3>
+            <p class="team-bio">Brief introduction for Seyed Mostafa Hallaji.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section section-projects">
+      <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <div id="projects-list" class="projects-list">
+          <!-- Projects loaded from data/projects.json by main.js -->
+          <p class="projects-loading">Loading projects…</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="news" class="section section-news">
+      <div class="container">
+        <h2 class="section-title">News</h2>
+        <div id="news-list" class="news-list">
+          <!-- News loaded from data/news.json by main.js -->
+          <p class="news-loading">Loading news…</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section section-contact">
+      <div class="container">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-content">
+          <p><a href="mailto:contact@example.edu">contact@example.edu</a></p>
+          <p>Your address, Building, Room</p>
+          <p><a href="mailto:contact@example.edu">Email to book an appointment</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; ICON Lab. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

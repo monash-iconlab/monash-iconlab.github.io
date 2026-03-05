@@ -1,0 +1,14 @@
+{
+  "projects": [
+    {
+      "title": "Placeholder project",
+      "excerpt": "One-line description of the project. Click to see full details and any embedded video.",
+      "slug": "placeholder-project"
+    },
+    {
+      "title": "Another project",
+      "excerpt": "Short description of another project.",
+      "slug": "another-project"
+    }
+  ]
+}

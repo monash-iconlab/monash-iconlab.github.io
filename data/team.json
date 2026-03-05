@@ -1,0 +1,16 @@
+{
+  "members": [
+    {
+      "name": "Jane Smith",
+      "role": "Principal Investigator",
+      "photo": "images/team/jane.jpg",
+      "bio": "Brief introduction and research interests."
+    },
+    {
+      "name": "John Doe",
+      "role": "Ph.D. Student",
+      "photo": "images/team/john.jpg",
+      "bio": "Brief introduction and research interests."
+    }
+  ]
+}

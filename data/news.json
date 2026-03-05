@@ -1,0 +1,16 @@
+{
+  "news": [
+    {
+      "date": "01/2025",
+      "title": "Placeholder news item",
+      "excerpt": "Short summary of the news. Click to read the full story.",
+      "slug": "2024-01-placeholder"
+    },
+    {
+      "date": "12/2024",
+      "title": "Another news headline",
+      "excerpt": "Another short summary for the homepage list.",
+      "slug": "2024-12-another"
+    }
+  ]
+}
