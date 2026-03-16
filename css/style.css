@@ -61,9 +61,10 @@ body {
 
 .nav-logo-img {
   display: block;
-  height: 48px;
+  height: 32px;
   width: auto;
-  max-height: 48px;
+  max-height: 32px;
+  max-width: 120px;
   object-fit: contain;
   object-position: left center;
 }
