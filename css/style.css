@@ -158,7 +158,7 @@ main {
 .about-text {
   margin: 0 0 1rem;
   color: var(--text-primary);
-  max-width: 65ch;
+  max-width: 100%;
 }
 
 .about-heading {
@@ -233,6 +233,10 @@ main {
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-top: 0;
+}
+
+.team-row-three.team-row-spaced {
+  margin-bottom: 2.5rem;
 }
 
 .team-card.team-card-inline {
