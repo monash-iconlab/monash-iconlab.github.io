@@ -44,6 +44,30 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
+/* Banner: 与 About 共用 .container，左右边缘与 About 正文列一致 */
+.site-banner {
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-page);
+}
+
+.site-banner .container.site-banner-container {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  line-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.site-banner-img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  min-width: 0;
+}
+
 .nav {
   display: flex;
   align-items: center;
@@ -126,6 +150,7 @@ main {
 }
 
 .container {
+  width: 100%;
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 1.5rem;
