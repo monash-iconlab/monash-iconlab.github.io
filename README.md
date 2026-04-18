@@ -13,7 +13,9 @@ This repository hosts a **static** research group website: no backend, suitable 
 - **Top navigation** with logo image (`images/ICON_logo_2.png`) and anchor links to About, Team, Projects, News, Contact.
 - **Banner** below the header (`images/banner.png`), aligned to the same **1000px content column** as the rest of the page (matches nav / About left and right edges).
 - **Homepage sections** (single `index.html`): About, Team, Projects, News, Contact.
-- **Team layout**: Director (Yihai Fang, photo + intro), **Current Students** (3-column cards), **Alumni** (same card layout; content edited in HTML).
+- **Team layout**: Director + **Current Members** + **Alumni** (3-column cards), edited directly in `index.html`.
+- **Avatar-to-profile navigation**: clicking each team member avatar opens an individual profile page under `people/`.
+- **Profile pages**: each member has a standalone page with text-only profile content (photos removed on profile pages).
 - **Projects & News** lists loaded from JSON (`data/projects.json`, `data/news.json`); each item links to a **detail page** under `projects/` or `news/` (static HTML).
 - **Detail pages** reuse the same CSS; nav shows the logo; optional **YouTube embed** via `<div class="video-embed">` + iframe.
 - **Styling**: light grey/white background, shared **logo blue** (`--logo-blue` in `css/style.css`), card hover borders, responsive layout.
@@ -37,14 +39,17 @@ In this repo: **Settings → Pages → Source** → Deploy from a branch → **m
 | `data/news.json`, `data/projects.json` | Homepage lists for News / Projects |
 | `data/team.json` | Legacy; team on homepage is **static HTML** in `index.html` |
 | `news/*.html`, `projects/*.html` | Full pages for each news item / project |
+| `people/*.html` | Individual profile pages for Director, members, and alumni |
 | `images/` | Logo, banner, team photos (`images/team/`) |
 
 ## Updating content
 
 ### Team
 
-- Edit **Director**, **Current Students**, and **Alumni** directly in `index.html` (search for `id="team"`).
-- Team photos live under `images/team/`.
+- Edit **Director**, **Current Members**, and **Alumni** directly in `index.html` (search for `id="team"`).
+- Team avatar links to personal pages are configured in `index.html` (`href="people/*.html"`).
+- Individual profile pages are in `people/`; they currently use text-only content.
+- Team photos on homepage live under `images/team/`.
 
 ### News
 
@@ -80,5 +85,6 @@ Then open the URL shown in the terminal (e.g. `http://localhost:3000`).
 
 - 静态网站，部署在 GitHub Pages，根域名：**https://monash-iconlab.github.io/**
 - 顶部导航含 **Logo**；下方有 **横幅图**（`images/banner.png`），与正文 **同宽对齐**（1000px 内容区）。
-- 首页包含：About、Team（Director / Current Students / Alumni）、Projects、News、Contact；Projects 与 News 列表由 **JSON** 驱动，详情为独立 **HTML 页面**。
+- 首页包含：About、Team（Director / Current Members / Alumni）、Projects、News、Contact；Projects 与 News 列表由 **JSON** 驱动，详情为独立 **HTML 页面**。
+- Team 区域头像可点击进入个人页（`people/*.html`）；个人页当前为纯文字信息，不显示照片。
 - 样式见 `css/style.css`；改主题蓝调整 `--logo-blue`。

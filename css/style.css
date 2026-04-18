@@ -277,6 +277,17 @@ main {
   margin-bottom: 0.75rem;
 }
 
+.team-avatar-link {
+  display: block;
+  border-radius: 6px;
+  outline: none;
+}
+
+.team-avatar-link:hover .team-photo,
+.team-avatar-link:focus-visible .team-photo {
+  box-shadow: 0 0 0 3px rgba(29, 91, 191, 0.25);
+}
+
 .team-card-inline .team-bio {
   font-size: 0.9rem;
   margin: 0;
@@ -518,6 +529,27 @@ main {
   height: 100%;
 }
 
+/* Profile page */
+.profile-layout {
+  max-width: 760px;
+}
+
+.profile-photo {
+  display: none;
+}
+
+.profile-role {
+  margin: 0;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.profile-subtitle {
+  margin: 0.35rem 0 1rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .nav-toggle {
@@ -564,5 +596,9 @@ main {
 
   .team-row-three {
     grid-template-columns: 1fr;
+  }
+
+  .profile-layout {
+    max-width: 100%;
   }
 }
