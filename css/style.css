@@ -529,15 +529,6 @@ main {
   height: 100%;
 }
 
-/* Profile page */
-.profile-layout {
-  max-width: 760px;
-}
-
-.profile-photo {
-  display: none;
-}
-
 .profile-role {
   margin: 0;
   color: var(--accent);
@@ -598,7 +589,4 @@ main {
     grid-template-columns: 1fr;
   }
 
-  .profile-layout {
-    max-width: 100%;
-  }
 }
