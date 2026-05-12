@@ -510,6 +510,32 @@ main {
   text-decoration: underline;
 }
 
+.news-article-gallery {
+  display: grid;
+  gap: 1.5rem;
+  margin: 1.5rem 0 0;
+}
+
+.news-article-figure {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.news-article-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.news-article-caption {
+  margin: 0.6rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
 /* Responsive YouTube embed */
 .video-embed {
   position: relative;
