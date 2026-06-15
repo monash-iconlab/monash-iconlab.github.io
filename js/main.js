@@ -42,6 +42,7 @@
         var href = item.url || 'projects/' + (item.slug || item.id || '') + '.html';
         return (
           '<a class="project-card" href="' + escapeAttr(href) + '">' +
+          (item.period ? '<p class="project-period">' + escapeHtml(item.period) + '</p>' : '') +
           '<h3 class="project-title">' + escapeHtml(item.title) + '</h3>' +
           '<p class="project-excerpt">' + escapeHtml(item.excerpt || '') + '</p>' +
           '<span class="project-link-text">Read more &rarr;</span>' +

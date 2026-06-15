@@ -1,22 +1,64 @@
 {
   "news": [
     {
+      "date": "06/2026",
+      "title": "ICON Lab Presents at ISARC 2026",
+      "excerpt": "ICON Lab members presented research at the International Symposium on Automation and Robotics in Construction (ISARC) 2026.",
+      "slug": "2026-06-isarc-presentations"
+    },
+    {
+      "date": "06/2026",
+      "title": "Leo Yu Receives Best Teaching Assistant Award",
+      "excerpt": "Leo Yu was recognised with a Best Teaching Assistant award for outstanding contribution to teaching.",
+      "slug": "2026-06-leo-best-ta-award"
+    },
+    {
       "date": "05/2026",
       "title": "ICON Lab Supports Monash Engineering Specialisation Event",
       "excerpt": "On 6 May 2026, ICON Lab supported the Monash University Engineering Faculty Specialisation Event and presented research combining mixed reality with crane operations.",
       "slug": "2026-05-monash-engineering-specialisation-event"
     },
     {
-      "date": "01/2025",
-      "title": "Placeholder news item",
-      "excerpt": "Short summary of the news. Click to read the full story.",
-      "slug": "2024-01-placeholder"
+      "date": "02/2026",
+      "title": "Welcome Xingjian Yang to ICON Lab",
+      "excerpt": "ICON Lab welcomes Xingjian Yang as a new Ph.D. student joining the research group.",
+      "slug": "2026-02-welcome-xingjian-yang"
     },
     {
-      "date": "12/2024",
-      "title": "Another news headline",
-      "excerpt": "Another short summary for the homepage list.",
-      "slug": "2024-12-another"
+      "date": "2025",
+      "title": "Net Zero Hub Launch",
+      "excerpt": "ICON Lab participated in the launch of the Net Zero Hub, advancing research in sustainable construction and infrastructure.",
+      "slug": "netzero-hub-launch"
+    },
+    {
+      "date": "2025",
+      "title": "Junlin Wang Wins AI Competition Award",
+      "excerpt": "Junlin Wang received an award at an AI competition for his innovative research work.",
+      "slug": "junlin-ai-competition-award"
+    },
+    {
+      "date": "2025",
+      "title": "ICON Lab Receives CIC Innovation Award (Merit)",
+      "excerpt": "ICON Lab was awarded a Merit at the CIC Innovation Awards 2025.",
+      "slug": "2025-cic-innovation-award-merit"
+    },
+    {
+      "date": "2024",
+      "title": "Songbo Hu Receives Best Paper Award",
+      "excerpt": "Alumnus Songbo Hu was honoured with a Best Paper Award for his research contributions.",
+      "slug": "2024-songbo-best-paper-award"
+    },
+    {
+      "date": "2024",
+      "title": "Yihai Fang Receives Supervision Award",
+      "excerpt": "Dr. Yihai Fang was recognised with a Supervision Award for excellence in research student supervision.",
+      "slug": "2024-yihai-supervision-award"
+    },
+    {
+      "date": "2023",
+      "title": "Yihai Fang Receives Research Excellence Award",
+      "excerpt": "Dr. Yihai Fang was awarded the Research Excellence Award for outstanding research contributions.",
+      "slug": "2023-yihai-research-excellence-award"
     }
   ]
 }

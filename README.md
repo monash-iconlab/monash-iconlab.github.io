@@ -1,90 +1,85 @@
-# monash-iconlab.github.io
+# ICON Lab Website
 
-ICON Lab website (GitHub Pages root site).
+Official website for **ICON Lab** (Intelligent Construction Systems Lab), a research group in the Department of Civil and Environmental Engineering at [Monash University](https://www.monash.edu/).
 
-## Project summary
+**Live site:** [https://monash-iconlab.github.io/](https://monash-iconlab.github.io/)
 
-This repository hosts a **static** research group website: no backend, suitable for **GitHub Pages**. The live site is served from the organization root URL:
+## Purpose
 
-**https://monash-iconlab.github.io/**
+This site is the public-facing home of ICON Lab. It introduces the group’s research mission, showcases the team, lists funded research projects and recent news, and provides a contact point for collaborators, students, and visitors.
 
-### What’s included
+ICON Lab focuses on intelligent construction systems that combine **robotics**, **artificial intelligence**, and **automation** to improve how infrastructure is planned, built, and operated. The website helps communicate that work to the academic community, industry partners, prospective students, and the public.
 
-- **Top navigation** with logo image (`images/ICON_logo_2.png`) and anchor links to About, Team, Projects, News, Contact.
-- **Banner** below the header (`images/banner.png`), aligned to the same **1000px content column** as the rest of the page (matches nav / About left and right edges).
-- **Homepage sections** (single `index.html`): About, Team, Projects, News, Contact.
-- **Team layout**: Director + **Current Members** + **Alumni** (3-column cards), edited directly in `index.html`.
-- **Avatar-to-profile navigation**: clicking each team member avatar opens an individual profile page under `people/`.
-- **Profile pages**: each member has a standalone page with text-only profile content (photos removed on profile pages).
-- **Projects & News** lists loaded from JSON (`data/projects.json`, `data/news.json`); each item links to a **detail page** under `projects/` or `news/` (static HTML).
-- **Detail pages** reuse the same CSS; nav shows the logo; optional **YouTube embed** via `<div class="video-embed">` + iframe.
-- **Styling**: light grey/white background, shared **logo blue** (`--logo-blue` in `css/style.css`), card hover borders, responsive layout.
+The site is intentionally **static** (HTML, CSS, and JavaScript only): no server, no build step, and straightforward hosting on **GitHub Pages**.
 
-### Tech stack
+## What’s on the site
 
-- HTML, CSS, JavaScript (no build step required).
-- `js/main.js` fetches JSON for Projects/News lists and handles smooth scrolling + mobile nav.
+| Section | Description |
+|---------|-------------|
+| **About** | Overview of ICON Lab’s research vision and focus areas. |
+| **Team** | Director, current members, and alumni with photos and short bios; each member links to an individual profile page. |
+| **Projects** | Funded research projects (ARC, Building 4.0 CRC, SPARC Hub, etc.), ordered by period; each links to a detail page with funding information and related publications or reports. |
+| **News** | Lab announcements, awards, events, and welcomes; each item links to a full news article. |
+| **Contact** | Email and location at Monash Clayton campus. |
 
-## Deploy (GitHub Pages)
+## Tech stack
 
-In this repo: **Settings → Pages → Source** → Deploy from a branch → **main** → **/ (root)**.
+- **HTML** — homepage sections and static detail pages (`news/`, `projects/`, `people/`)
+- **CSS** — layout, typography, and responsive design (`css/style.css`)
+- **JavaScript** — loads project and news lists from JSON, smooth scrolling, mobile navigation (`js/main.js`)
+- **GitHub Pages** — deployment from the `main` branch at the repository root
 
 ## Repository layout
 
 | Path | Purpose |
 |------|---------|
-| `index.html` | Homepage (nav, banner, all main sections) |
-| `css/style.css` | Theme, layout, banner, team cards, detail pages |
-| `js/main.js` | Loads `data/*.json`, nav toggle, smooth scroll |
-| `data/news.json`, `data/projects.json` | Homepage lists for News / Projects |
-| `data/team.json` | Legacy; team on homepage is **static HTML** in `index.html` |
-| `news/*.html`, `projects/*.html` | Full pages for each news item / project |
-| `people/*.html` | Individual profile pages for Director, members, and alumni |
-| `images/` | Logo, banner, team photos (`images/team/`) |
+| `index.html` | Homepage (navigation, banner, About, Team, Projects, News, Contact) |
+| `css/style.css` | Global styles and theme (`--logo-blue` accent) |
+| `js/main.js` | Fetches `data/*.json`, renders cards, nav toggle |
+| `data/news.json` | News list for the homepage (title, date, excerpt, slug) |
+| `data/projects.json` | Projects list for the homepage (title, period, funding excerpt, slug) |
+| `news/*.html` | Full article for each news item |
+| `projects/*.html` | Full page for each research project |
+| `people/*.html` | Individual profile pages for director, members, and alumni |
+| `images/` | Logo, banner, team photos (`images/team/`), news images |
 
 ## Updating content
 
 ### Team
 
-- Edit **Director**, **Current Members**, and **Alumni** directly in `index.html` (search for `id="team"`).
-- Team avatar links to personal pages are configured in `index.html` (`href="people/*.html"`).
-- Individual profile pages are in `people/`; they currently use text-only content.
-- Team photos on homepage live under `images/team/`.
-
-### News
-
-- Homepage list: `data/news.json`
-- Detail pages: `news/*.html` (copy an existing file and edit)
-- YouTube embed: paste the `<iframe ...></iframe>` inside the `<div class="video-embed">` block.
+Edit the **Director**, **Current Members**, and **Alumni** blocks in `index.html` (search for `id="team"`). Link each avatar to the matching file under `people/`. Profile pages are text-focused standalone HTML files.
 
 ### Projects
 
-- Homepage list: `data/projects.json`
-- Detail pages: `projects/*.html` (copy an existing file and edit)
-- YouTube embed: same as News.
+1. Add an entry to `data/projects.json` (newest projects first).
+2. Create a matching page under `projects/` (copy an existing file and edit).
+3. Put funding details and descriptions first; place external links (publications, CRC reports) at the bottom of the detail page.
+
+### News
+
+1. Add an entry to `data/news.json` (most recent first).
+2. Create a matching page under `news/` (copy an existing file and edit).
 
 ### About / Contact
 
-- Edit the About and Contact sections in `index.html`.
-- **About** line width matches the main content column (no narrow `max-width` on body text).
-
-### Theme colors
-
-- Global accent / section heading blue: CSS variable `--logo-blue` in `css/style.css` (adjust to match the logo if needed).
+Edit the corresponding sections directly in `index.html`.
 
 ## Local preview
 
-Use a local server so JSON loads correctly:
+JSON is loaded via `fetch`, so open the site through a local server rather than `file://`:
 
-- `npx serve .`
-- or `python -m http.server`
+```bash
+npx serve .
+```
 
-Then open the URL shown in the terminal (e.g. `http://localhost:3000`).
+Then visit the URL shown in the terminal (e.g. `http://localhost:3000`).
 
-## 项目概要（中文）
+## Deploy (GitHub Pages)
 
-- 静态网站，部署在 GitHub Pages，根域名：**https://monash-iconlab.github.io/**
-- 顶部导航含 **Logo**；下方有 **横幅图**（`images/banner.png`），与正文 **同宽对齐**（1000px 内容区）。
-- 首页包含：About、Team（Director / Current Members / Alumni）、Projects、News、Contact；Projects 与 News 列表由 **JSON** 驱动，详情为独立 **HTML 页面**。
-- Team 区域头像可点击进入个人页（`people/*.html`）；个人页当前为纯文字信息，不显示照片。
-- 样式见 `css/style.css`；改主题蓝调整 `--logo-blue`。
+In this repository: **Settings → Pages → Build and deployment → Source** → Deploy from branch → **main** → **/ (root)**.
+
+Changes pushed to `main` are published automatically after GitHub Pages rebuilds the site.
+
+## License & attribution
+
+Content © ICON Lab, Monash University. For questions about the site or lab research, contact [eng-iconlab@monash.edu](mailto:eng-iconlab@monash.edu).

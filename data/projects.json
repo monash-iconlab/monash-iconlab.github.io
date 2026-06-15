@@ -1,14 +1,46 @@
 {
   "projects": [
     {
-      "title": "Placeholder project",
-      "excerpt": "One-line description of the project. Click to see full details and any embedded video.",
-      "slug": "placeholder-project"
+      "title": "Positional accuracy for robotic structural assembly",
+      "excerpt": "Funded by the Australian Research Council (ARC) under the Discovery scheme.",
+      "period": "2026–2029",
+      "slug": "positional-accuracy-robotic-assembly"
     },
     {
-      "title": "Another project",
-      "excerpt": "Short description of another project.",
-      "slug": "another-project"
+      "title": "Collaborative robotics for structural assembly and construction automation",
+      "excerpt": "Funded by the Australian Research Council (ARC) under the Linkage Infrastructure, Equipment and Facilities (LIEF) scheme.",
+      "period": "2021–2026",
+      "slug": "collaborative-robotics-structural-assembly"
+    },
+    {
+      "title": "Monash Innovation Labs Digital Twin (MIL-DT): Design, Development and Case Studies",
+      "excerpt": "Funded by the Building 4.0 CRC.",
+      "period": "2023–2024",
+      "slug": "mil-dt-digital-twin"
+    },
+    {
+      "title": "Evaluation of emerging technologies for remote (virtual) inspections of building work",
+      "excerpt": "Funded by the Building 4.0 CRC.",
+      "period": "2022–2023",
+      "slug": "remote-virtual-building-inspections"
+    },
+    {
+      "title": "Development of crowdsourcing technology for pavement condition assessment including the use of smart mobile phones",
+      "excerpt": "Funded by the ARC SPARC Hub.",
+      "period": "2020–2024",
+      "slug": "crowdsourcing-pavement-assessment"
+    },
+    {
+      "title": "Enhanced road safety through smart sensing for road construction, planned interruptions/worksites and interaction with autonomous vehicles",
+      "excerpt": "Funded by the ARC SPARC Hub.",
+      "period": "2020–2024",
+      "slug": "smart-sensing-road-safety"
+    },
+    {
+      "title": "Field Data Collation to support real-time operational management",
+      "excerpt": "Funded by the Building 4.0 CRC.",
+      "period": "2020–2021",
+      "slug": "field-data-collation"
     }
   ]
 }
