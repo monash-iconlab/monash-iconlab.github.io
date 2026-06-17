@@ -35,13 +35,101 @@ The site is intentionally **static** (HTML, CSS, and JavaScript only): no server
 |------|---------|
 | `index.html` | Homepage (navigation, banner, About, Team, Projects, News, Contact) |
 | `css/style.css` | Global styles and theme (`--logo-blue` accent) |
-| `js/main.js` | Fetches `data/*.json`, renders cards, nav toggle |
+| `js/main.js` | Fetches `data/*.json`, renders cards, nav toggle, optional visit tracking |
+| `js/analytics-config.js` | Cloudflare Worker tracking endpoint config (disabled until deployed) |
 | `data/news.json` | News list for the homepage (title, date, excerpt, slug) |
 | `data/projects.json` | Projects list for the homepage (title, period, funding excerpt, slug) |
 | `news/*.html` | Full article for each news item |
 | `projects/*.html` | Full page for each research project |
 | `people/*.html` | Individual profile pages for director, members, and alumni |
 | `images/` | Logo, banner, team photos (`images/team/`), news images |
+| `cloudflare-worker/` | Optional Cloudflare Worker for visitor IP and page-view analytics |
+
+## Visitor analytics (optional, free tier)
+
+GitHub Pages cannot log visitor IPs by itself. This repo includes an optional **Cloudflare Worker** that records:
+
+- total page views
+- visits per page path
+- visits per visitor IP address
+
+The static site sends a lightweight `POST /track` request on each page load. Stats are stored in **Cloudflare KV** and can be read from a protected `GET /stats` endpoint.
+
+Tracking is **off by default** until you deploy the worker and enable it in `js/analytics-config.js`.
+
+### 1. Deploy the Worker
+
+Prerequisites: [Cloudflare account](https://dash.cloudflare.com/) (free), [Node.js](https://nodejs.org/).
+
+```bash
+cd cloudflare-worker
+npm install
+npx wrangler login
+npx wrangler kv namespace create ICONLAB_STATS
+```
+
+Copy the returned `id` into `cloudflare-worker/wrangler.toml` (`REPLACE_WITH_YOUR_KV_NAMESPACE_ID`).
+
+Set an admin token (keep this secret):
+
+```bash
+npx wrangler secret put STATS_TOKEN
+```
+
+Deploy:
+
+```bash
+npm run deploy
+```
+
+Note the Worker URL, e.g. `https://iconlab-analytics.<account>.workers.dev`.
+
+### 2. Enable tracking on the website
+
+Edit [js/analytics-config.js](js/analytics-config.js):
+
+```javascript
+window.ICONLAB_ANALYTICS = {
+  enabled: true,
+  endpoint: 'https://iconlab-analytics.<account>.workers.dev/track'
+};
+```
+
+Commit and push to GitHub Pages as usual.
+
+### 3. View statistics
+
+Replace `<WORKER_URL>` and `<STATS_TOKEN>` with your values:
+
+```bash
+curl -H "Authorization: Bearer <STATS_TOKEN>" "https://<WORKER_URL>/stats"
+```
+
+Example response:
+
+```json
+{
+  "totalVisits": 42,
+  "uniqueIps": 15,
+  "byIp": [{ "ip": "203.0.113.10", "count": 5 }],
+  "byPage": [{ "path": "/index.html", "count": 20 }]
+}
+```
+
+### KV data model
+
+| Key pattern | Meaning |
+|-------------|---------|
+| `global:total` | Total page views |
+| `ip:{address}:count` | Views from one IP |
+| `page:{path}:count` | Views of one path |
+
+### Security notes
+
+- Only origins listed in `ALLOWED_ORIGINS` (`wrangler.toml`) may call `/track`.
+- `/stats` requires the `STATS_TOKEN` secret (header or `?token=` query).
+- Do not commit real tokens. Do not publish stats URLs with the token embedded.
+- IP addresses are personal data; the homepage footer includes a short notice.
 
 ## Updating content
 

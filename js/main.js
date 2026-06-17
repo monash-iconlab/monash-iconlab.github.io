@@ -95,4 +95,25 @@
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
   }
+
+  // Fire-and-forget page view tracking via Cloudflare Worker (see js/analytics-config.js)
+  (function trackPageView() {
+    var config = window.ICONLAB_ANALYTICS || {};
+    if (!config.enabled || !config.endpoint) return;
+
+    try {
+      fetch(config.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          path: window.location.pathname + window.location.search,
+          ts: new Date().toISOString()
+        }),
+        keepalive: true,
+        mode: 'cors'
+      }).catch(function () {});
+    } catch (err) {
+      // Ignore tracking errors so site behavior is unaffected.
+    }
+  })();
 })();

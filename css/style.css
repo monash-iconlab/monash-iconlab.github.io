@@ -497,6 +497,13 @@ main {
   margin: 0;
 }
 
+.site-footer-note {
+  margin-top: 0.5rem !important;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  opacity: 0.9;
+}
+
 /* Detail page layout (news/projects) — 与 nav 同宽、同缩进，灰色背景不超出 logo 左侧 */
 .page-header {
   max-width: 1000px;

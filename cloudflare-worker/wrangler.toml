@@ -1,0 +1,16 @@
+name = "iconlab-analytics"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# Create KV namespace first:
+#   npx wrangler kv namespace create ICONLAB_STATS
+# Then paste the id below.
+[[kv_namespaces]]
+binding = "ICONLAB_STATS"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+[vars]
+ALLOWED_ORIGINS = "https://monash-iconlab.github.io,http://localhost:3000,http://localhost:5500,http://127.0.0.1:5500"
+
+# Set admin token as a secret (do not commit real value):
+#   npx wrangler secret put STATS_TOKEN
