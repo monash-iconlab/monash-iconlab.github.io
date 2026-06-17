@@ -111,9 +111,45 @@ Example response:
 {
   "totalVisits": 42,
   "uniqueIps": 15,
-  "byIp": [{ "ip": "203.0.113.10", "count": 5 }],
-  "byPage": [{ "path": "/index.html", "count": 20 }]
+  "byIp": [
+    {
+      "ip": "203.0.113.10",
+      "count": 5,
+      "firstSeen": "2026-06-17T10:00:00.000Z",
+      "lastSeen": "2026-06-17T12:30:00.000Z",
+      "country": "AU",
+      "lastPath": "/index.html"
+    }
+  ],
+  "byPage": [
+    {
+      "path": "/index.html",
+      "count": 20,
+      "firstSeen": "2026-06-17T10:00:00.000Z",
+      "lastSeen": "2026-06-17T12:30:00.000Z"
+    }
+  ],
+  "recentVisits": [
+    {
+      "id": "uuid",
+      "ts": "2026-06-17T12:30:00.000Z",
+      "ip": "203.0.113.10",
+      "path": "/index.html",
+      "country": "AU",
+      "city": "Melbourne",
+      "region": "Victoria",
+      "userAgent": "Mozilla/5.0 ...",
+      "referer": "https://google.com/",
+      "origin": "https://monash-iconlab.github.io"
+    }
+  ]
 }
+```
+
+After changing Worker code, redeploy from `cloudflare-worker/`:
+
+```bash
+npm run deploy
 ```
 
 ### KV data model

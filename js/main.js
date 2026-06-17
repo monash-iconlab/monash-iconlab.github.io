@@ -107,7 +107,8 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           path: window.location.pathname + window.location.search,
-          ts: new Date().toISOString()
+          ts: new Date().toISOString(),
+          referrer: document.referrer || ''
         }),
         keepalive: true,
         mode: 'cors'

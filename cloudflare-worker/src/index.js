@@ -1,4 +1,7 @@
 const KEY_TOTAL = 'global:total';
+const KEY_LOG_INDEX = 'meta:log-index';
+const MAX_STORED_LOGS = 500;
+const MAX_RECENT_IN_STATS = 100;
 
 function parseAllowedOrigins(env) {
   return (env.ALLOWED_ORIGINS || 'https://monash-iconlab.github.io,http://localhost:3000,http://localhost:5500,http://127.0.0.1:5500')
@@ -25,7 +28,7 @@ function corsHeaders(origin, allowedOrigins) {
 }
 
 function jsonResponse(data, status, origin, allowedOrigins) {
-  return new Response(JSON.stringify(data), {
+  return new Response(JSON.stringify(data, null, 2), {
     status: status,
     headers: Object.assign(
       { 'Content-Type': 'application/json' },
@@ -35,8 +38,9 @@ function jsonResponse(data, status, origin, allowedOrigins) {
 }
 
 function getClientIp(request) {
+  var forwarded = request.headers.get('X-Forwarded-For');
   return request.headers.get('CF-Connecting-IP')
-    || request.headers.get('X-Forwarded-For')?.split(',')[0]?.trim()
+    || (forwarded ? forwarded.split(',')[0].trim() : null)
     || 'unknown';
 }
 
@@ -48,9 +52,73 @@ async function incrementCounter(kv, key) {
   return next;
 }
 
+function safeString(value, maxLen) {
+  if (typeof value !== 'string') return '';
+  return value.slice(0, maxLen);
+}
+
+async function readJson(kv, key, fallback) {
+  var raw = await kv.get(key);
+  if (!raw) return fallback;
+  try {
+    return JSON.parse(raw);
+  } catch (err) {
+    return fallback;
+  }
+}
+
+async function appendVisitLog(kv, visit) {
+  var logKey = 'log:' + visit.ts + ':' + visit.id;
+  await kv.put(logKey, JSON.stringify(visit));
+
+  var index = await readJson(kv, KEY_LOG_INDEX, []);
+  index.push(logKey);
+  if (index.length > MAX_STORED_LOGS) {
+    var removed = index.splice(0, index.length - MAX_STORED_LOGS);
+    await Promise.all(removed.map(function (key) { return kv.delete(key); }));
+  }
+  await kv.put(KEY_LOG_INDEX, JSON.stringify(index));
+}
+
+async function updateIpMeta(kv, ip, visit) {
+  var metaKey = 'ipmeta:' + ip;
+  var meta = await readJson(kv, metaKey, {
+    ip: ip,
+    count: 0,
+    firstSeen: visit.ts,
+    lastSeen: visit.ts,
+    country: visit.country,
+    lastPath: visit.path
+  });
+
+  meta.count += 1;
+  meta.lastSeen = visit.ts;
+  meta.country = visit.country || meta.country;
+  meta.lastPath = visit.path;
+  if (!meta.firstSeen) meta.firstSeen = visit.ts;
+
+  await kv.put(metaKey, JSON.stringify(meta));
+}
+
+async function updatePageMeta(kv, pagePath, visit) {
+  var metaKey = 'pagemeta:' + pagePath;
+  var meta = await readJson(kv, metaKey, {
+    path: pagePath,
+    count: 0,
+    firstSeen: visit.ts,
+    lastSeen: visit.ts
+  });
+
+  meta.count += 1;
+  meta.lastSeen = visit.ts;
+  if (!meta.firstSeen) meta.firstSeen = visit.ts;
+
+  await kv.put(metaKey, JSON.stringify(meta));
+}
+
 async function handleTrack(request, env, origin, allowedOrigins) {
   if (!isAllowedOrigin(origin, allowedOrigins)) {
-    return jsonResponse({ error: 'Origin not allowed' }, 403, origin, allowedOrigins);
+    return jsonResponse({ error: 'Origin not allowed', origin: origin || null }, 403, origin, allowedOrigins);
   }
 
   var body = {};
@@ -66,18 +134,31 @@ async function handleTrack(request, env, origin, allowedOrigins) {
   }
 
   var ip = getClientIp(request);
-  var ipKey = 'ip:' + ip + ':count';
-  var pageKey = 'page:' + pagePath + ':count';
+  var ts = typeof body.ts === 'string' && body.ts ? body.ts : new Date().toISOString();
+  var visit = {
+    id: crypto.randomUUID(),
+    ts: ts,
+    ip: ip,
+    path: pagePath,
+    country: request.headers.get('CF-IPCountry') || 'unknown',
+    city: request.headers.get('CF-IPCity') || '',
+    region: request.headers.get('CF-IPRegion') || '',
+    userAgent: safeString(request.headers.get('User-Agent') || '', 300),
+    referer: safeString(body.referrer || request.headers.get('Referer') || '', 500),
+    origin: origin || ''
+  };
 
   var total = await incrementCounter(env.ICONLAB_STATS, KEY_TOTAL);
-  var ipCount = await incrementCounter(env.ICONLAB_STATS, ipKey);
-  var pageCount = await incrementCounter(env.ICONLAB_STATS, pageKey);
+  await incrementCounter(env.ICONLAB_STATS, 'ip:' + ip + ':count');
+  await incrementCounter(env.ICONLAB_STATS, 'page:' + pagePath + ':count');
+  await appendVisitLog(env.ICONLAB_STATS, visit);
+  await updateIpMeta(env.ICONLAB_STATS, ip, visit);
+  await updatePageMeta(env.ICONLAB_STATS, pagePath, visit);
 
   return jsonResponse({
     ok: true,
     total: total,
-    ipCount: ipCount,
-    pageCount: pageCount
+    visitId: visit.id
   }, 200, origin, allowedOrigins);
 }
 
@@ -92,22 +173,33 @@ function isAuthorized(request, env) {
   return url.searchParams.get('token') === token;
 }
 
-async function listStats(kv, prefix) {
+async function listMeta(kv, prefix) {
   var list = await kv.list({ prefix: prefix });
   var rows = [];
 
   for (var i = 0; i < list.keys.length; i++) {
-    var key = list.keys[i].name;
-    var value = parseInt(await kv.get(key), 10);
-    if (!Number.isFinite(value)) value = 0;
-    rows.push({
-      key: key.slice(prefix.length),
-      count: value
-    });
+    var meta = await readJson(kv, list.keys[i].name, null);
+    if (meta) rows.push(meta);
   }
 
-  rows.sort(function (a, b) { return b.count - a.count; });
+  rows.sort(function (a, b) {
+    return String(b.lastSeen || '').localeCompare(String(a.lastSeen || ''));
+  });
+
   return rows;
+}
+
+async function getRecentVisits(kv, limit) {
+  var index = await readJson(kv, KEY_LOG_INDEX, []);
+  var keys = index.slice(-limit).reverse();
+  var visits = [];
+
+  for (var i = 0; i < keys.length; i++) {
+    var visit = await readJson(kv, keys[i], null);
+    if (visit) visits.push(visit);
+  }
+
+  return visits;
 }
 
 async function handleStats(request, env, origin, allowedOrigins) {
@@ -118,24 +210,16 @@ async function handleStats(request, env, origin, allowedOrigins) {
   var total = parseInt(await env.ICONLAB_STATS.get(KEY_TOTAL), 10);
   if (!Number.isFinite(total)) total = 0;
 
-  var byIp = await listStats(env.ICONLAB_STATS, 'ip:');
-  var byPage = await listStats(env.ICONLAB_STATS, 'page:');
+  var byIp = await listMeta(env.ICONLAB_STATS, 'ipmeta:');
+  var byPage = await listMeta(env.ICONLAB_STATS, 'pagemeta:');
+  var recentVisits = await getRecentVisits(env.ICONLAB_STATS, MAX_RECENT_IN_STATS);
 
   return jsonResponse({
     totalVisits: total,
     uniqueIps: byIp.length,
-    byIp: byIp.map(function (row) {
-      return {
-        ip: row.key.replace(/:count$/, ''),
-        count: row.count
-      };
-    }),
-    byPage: byPage.map(function (row) {
-      return {
-        path: row.key.replace(/:count$/, ''),
-        count: row.count
-      };
-    })
+    byIp: byIp,
+    byPage: byPage,
+    recentVisits: recentVisits
   }, 200, origin, allowedOrigins);
 }
 
