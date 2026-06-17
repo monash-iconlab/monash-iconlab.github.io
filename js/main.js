@@ -32,16 +32,18 @@
   // Team section is static HTML in index.html (Yihai Fang row + 3-person row)
 
   // Load and render projects from data/projects.json
-  fetch('data/projects.json')
+  fetch('data/projects.json', { cache: 'no-store' })
     .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
     .then(function (data) {
       var list = document.getElementById('projects-list');
       if (!list) return;
       var items = data.projects || data;
       list.innerHTML = items.map(function (item) {
-        var href = item.url || 'projects/' + (item.slug || item.id || '') + '.html';
+        var href = item.url || '/projects/' + (item.slug || item.id || '') + '/';
+        var isExternal = /^https?:\/\//.test(href);
+        var linkAttrs = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
         return (
-          '<a class="project-card" href="' + escapeAttr(href) + '">' +
+          '<a class="project-card" href="' + escapeAttr(href) + '"' + linkAttrs + '>' +
           (item.period ? '<p class="project-period">' + escapeHtml(item.period) + '</p>' : '') +
           '<h3 class="project-title">' + escapeHtml(item.title) + '</h3>' +
           '<p class="project-excerpt">' + escapeHtml(item.excerpt || '') + '</p>' +
@@ -56,14 +58,14 @@
     });
 
   // Load and render news from data/news.json
-  fetch('data/news.json')
+  fetch('data/news.json', { cache: 'no-store' })
     .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
     .then(function (data) {
       var list = document.getElementById('news-list');
       if (!list) return;
       var items = data.news || data;
       list.innerHTML = items.map(function (item) {
-        var href = item.url || 'news/' + (item.slug || item.id || '') + '.html';
+        var href = item.url || '/news/' + (item.slug || item.id || '') + '.html';
         return (
           '<a class="news-card" href="' + escapeAttr(href) + '">' +
           '<p class="news-date">' + escapeHtml(item.date || '') + '</p>' +
