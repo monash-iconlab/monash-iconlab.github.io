@@ -56,9 +56,24 @@
     }
   }
 
+  function formatCountry(code) {
+    if (!code || code === 'unknown' || code === 'XX') return '—';
+    try {
+      var name = new Intl.DisplayNames(['en'], { type: 'region' }).of(code);
+      return name ? name + ' (' + code + ')' : code;
+    } catch (err) {
+      return code;
+    }
+  }
+
   function formatLocation(visit) {
-    var parts = [visit.city, visit.region, visit.country].filter(Boolean);
-    return parts.length ? parts.join(', ') : (visit.country || '—');
+    var locationParts = [visit.city, visit.region].filter(Boolean);
+    var countryLabel = formatCountry(visit.country);
+    if (locationParts.length && countryLabel !== '—') {
+      return locationParts.join(', ') + ', ' + countryLabel;
+    }
+    if (locationParts.length) return locationParts.join(', ');
+    return countryLabel;
   }
 
   function parseUserAgent(ua) {
@@ -160,7 +175,7 @@
         '<tr>' +
         '<td>' + escapeHtml(row.ip) + '</td>' +
         '<td>' + escapeHtml(row.count) + '</td>' +
-        '<td>' + escapeHtml(row.country || '—') + '</td>' +
+        '<td>' + escapeHtml(formatCountry(row.country)) + '</td>' +
         '<td>' + escapeHtml(formatDateTime(row.firstSeen)) + '</td>' +
         '<td>' + escapeHtml(formatDateTime(row.lastSeen)) + '</td>' +
         '<td>' + escapeHtml(row.lastPath || '—') + '</td>' +

@@ -1,7 +1,6 @@
 const KEY_TOTAL = 'global:total';
 const KEY_LOG_INDEX = 'meta:log-index';
-const MAX_STORED_LOGS = 500;
-const MAX_RECENT_IN_STATS = 100;
+const MAX_VISIT_LOGS = 500;
 
 function parseAllowedOrigins(env) {
   return (env.ALLOWED_ORIGINS || 'https://monash-iconlab.github.io,http://localhost:3000,http://localhost:5500,http://127.0.0.1:5500')
@@ -44,6 +43,15 @@ function getClientIp(request) {
     || 'unknown';
 }
 
+function getGeoFromRequest(request) {
+  var cf = request.cf || {};
+  return {
+    country: cf.country || request.headers.get('CF-IPCountry') || 'unknown',
+    city: cf.city || request.headers.get('CF-IPCity') || '',
+    region: cf.region || cf.regionCode || request.headers.get('CF-Region') || ''
+  };
+}
+
 async function incrementCounter(kv, key) {
   var current = parseInt(await kv.get(key), 10);
   if (!Number.isFinite(current)) current = 0;
@@ -73,8 +81,8 @@ async function appendVisitLog(kv, visit) {
 
   var index = await readJson(kv, KEY_LOG_INDEX, []);
   index.push(logKey);
-  if (index.length > MAX_STORED_LOGS) {
-    var removed = index.splice(0, index.length - MAX_STORED_LOGS);
+  if (index.length > MAX_VISIT_LOGS) {
+    var removed = index.splice(0, index.length - MAX_VISIT_LOGS);
     await Promise.all(removed.map(function (key) { return kv.delete(key); }));
   }
   await kv.put(KEY_LOG_INDEX, JSON.stringify(index));
@@ -134,15 +142,16 @@ async function handleTrack(request, env, origin, allowedOrigins) {
   }
 
   var ip = getClientIp(request);
+  var geo = getGeoFromRequest(request);
   var ts = typeof body.ts === 'string' && body.ts ? body.ts : new Date().toISOString();
   var visit = {
     id: crypto.randomUUID(),
     ts: ts,
     ip: ip,
     path: pagePath,
-    country: request.headers.get('CF-IPCountry') || 'unknown',
-    city: request.headers.get('CF-IPCity') || '',
-    region: request.headers.get('CF-IPRegion') || '',
+    country: geo.country,
+    city: geo.city,
+    region: geo.region,
     userAgent: safeString(request.headers.get('User-Agent') || '', 300),
     referer: safeString(body.referrer || request.headers.get('Referer') || '', 500),
     origin: origin || ''
@@ -236,7 +245,7 @@ async function handleStats(request, env, origin, allowedOrigins) {
 
   var byIp = await listMeta(env.ICONLAB_STATS, 'ipmeta:');
   var byPage = await listMeta(env.ICONLAB_STATS, 'pagemeta:');
-  var recentVisits = await getRecentVisits(env.ICONLAB_STATS, MAX_RECENT_IN_STATS);
+  var recentVisits = await getRecentVisits(env.ICONLAB_STATS, MAX_VISIT_LOGS);
   var visitsToday = await countVisitsToday(env.ICONLAB_STATS);
   var topPage = getTopPage(byPage);
 
