@@ -539,6 +539,15 @@ main {
   margin: 0 0 1rem;
 }
 
+.page-content ul {
+  margin: 0 0 1rem 1.25rem;
+  padding: 0;
+}
+
+.page-content li {
+  margin-bottom: 0.5rem;
+}
+
 .page-content a {
   color: var(--accent);
   text-decoration: none;
