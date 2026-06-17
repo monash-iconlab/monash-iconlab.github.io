@@ -36,7 +36,7 @@ The site is intentionally **static** (HTML, CSS, and JavaScript only): no server
 | `index.html` | Homepage (navigation, banner, About, Team, Projects, News, Contact) |
 | `css/style.css` | Global styles and theme (`--logo-blue` accent) |
 | `js/main.js` | Fetches `data/*.json`, renders cards, nav toggle, optional visit tracking |
-| `js/analytics-config.js` | Cloudflare Worker tracking endpoint config (disabled until deployed) |
+| `js/analytics-config.js` | Cloudflare Worker tracking and stats endpoint config |
 | `data/news.json` | News list for the homepage (title, date, excerpt, slug) |
 | `data/projects.json` | Projects list for the homepage (title, period, funding excerpt, slug) |
 | `news/*.html` | Full article for each news item |
@@ -44,6 +44,7 @@ The site is intentionally **static** (HTML, CSS, and JavaScript only): no server
 | `people/*.html` | Individual profile pages for director, members, and alumni |
 | `images/` | Logo, banner, team photos (`images/team/`), news images |
 | `cloudflare-worker/` | Optional Cloudflare Worker for visitor IP and page-view analytics |
+| `admin/stats.html` | Password-protected admin dashboard for visit statistics |
 
 ## Visitor analytics (optional, free tier)
 
@@ -151,6 +152,25 @@ After changing Worker code, redeploy from `cloudflare-worker/`:
 ```bash
 npm run deploy
 ```
+
+### 4. Admin dashboard (recommended)
+
+Open the password-protected stats page:
+
+**https://monash-iconlab.github.io/admin/stats.html**
+
+This page is **not linked** from the public navigation. Sign in with your Cloudflare `STATS_TOKEN` (stored in the browser session only until you sign out).
+
+The dashboard shows:
+
+| Section | What it shows |
+|---------|----------------|
+| Summary cards | Total visits, unique visitors, visits today, top page |
+| Recent visits | Time, IP, page, location, referrer, browser/OS |
+| Visitors by IP | Per-IP visit count, country, first/last seen, last page |
+| Pages | Page views, traffic share, last visited |
+
+Ensure `js/analytics-config.js` includes `statsEndpoint` pointing to your Worker `/stats` URL.
 
 ### KV data model
 

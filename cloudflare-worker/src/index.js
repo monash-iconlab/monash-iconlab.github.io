@@ -202,6 +202,30 @@ async function getRecentVisits(kv, limit) {
   return visits;
 }
 
+async function countVisitsToday(kv) {
+  var index = await readJson(kv, KEY_LOG_INDEX, []);
+  var today = new Date().toISOString().slice(0, 10);
+  var count = 0;
+
+  for (var i = 0; i < index.length; i++) {
+    var visit = await readJson(kv, index[i], null);
+    if (visit && visit.ts && visit.ts.slice(0, 10) === today) {
+      count += 1;
+    }
+  }
+
+  return count;
+}
+
+function getTopPage(byPage) {
+  if (!byPage.length) return null;
+  var top = byPage[0];
+  for (var i = 1; i < byPage.length; i++) {
+    if (byPage[i].count > top.count) top = byPage[i];
+  }
+  return top;
+}
+
 async function handleStats(request, env, origin, allowedOrigins) {
   if (!isAuthorized(request, env)) {
     return jsonResponse({ error: 'Unauthorized' }, 401, origin, allowedOrigins);
@@ -213,10 +237,14 @@ async function handleStats(request, env, origin, allowedOrigins) {
   var byIp = await listMeta(env.ICONLAB_STATS, 'ipmeta:');
   var byPage = await listMeta(env.ICONLAB_STATS, 'pagemeta:');
   var recentVisits = await getRecentVisits(env.ICONLAB_STATS, MAX_RECENT_IN_STATS);
+  var visitsToday = await countVisitsToday(env.ICONLAB_STATS);
+  var topPage = getTopPage(byPage);
 
   return jsonResponse({
     totalVisits: total,
     uniqueIps: byIp.length,
+    visitsToday: visitsToday,
+    topPage: topPage,
     byIp: byIp,
     byPage: byPage,
     recentVisits: recentVisits

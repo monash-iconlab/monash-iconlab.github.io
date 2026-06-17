@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Visit Stats – ICON Lab</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../index.html" class="nav-logo">
+        <img src="../images/iconlab-logo-1.png" alt="ICON Lab" class="nav-logo-img">
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"></button>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#team">Team</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#news">News</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <header class="page-header">
+      <h1 class="page-title">Visit Statistics</h1>
+      <p class="page-date">Admin dashboard for ICON Lab website analytics</p>
+    </header>
+
+    <div class="page-content stats-page">
+      <section id="stats-login" class="stats-login">
+        <div class="stats-login-card">
+          <h2>Sign in</h2>
+          <p class="stats-note">Enter your Cloudflare <code>STATS_TOKEN</code> to view visitor analytics. Do not share this page or token.</p>
+          <form id="stats-login-form" class="stats-login-form">
+            <label for="stats-token-input">Stats token</label>
+            <input id="stats-token-input" type="password" name="token" autocomplete="current-password" required>
+            <button type="submit" class="stats-btn stats-btn-primary">View stats</button>
+          </form>
+          <p id="stats-login-error" class="stats-error" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section id="stats-dashboard" class="stats-dashboard" hidden>
+        <div class="stats-toolbar">
+          <p id="stats-updated-at" class="stats-updated"></p>
+          <div class="stats-toolbar-actions">
+            <button id="stats-refresh-btn" type="button" class="stats-btn">Refresh</button>
+            <button id="stats-signout-btn" type="button" class="stats-btn stats-btn-secondary">Sign out</button>
+          </div>
+        </div>
+        <p id="stats-dashboard-error" class="stats-error" aria-live="polite"></p>
+
+        <div class="stats-cards">
+          <article class="stats-card">
+            <h3>Total visits</h3>
+            <p id="stat-total-visits" class="stats-card-value">0</p>
+          </article>
+          <article class="stats-card">
+            <h3>Unique visitors</h3>
+            <p id="stat-unique-ips" class="stats-card-value">0</p>
+          </article>
+          <article class="stats-card">
+            <h3>Visits today</h3>
+            <p id="stat-visits-today" class="stats-card-value">0</p>
+          </article>
+          <article class="stats-card stats-card-wide">
+            <h3>Top page</h3>
+            <p id="stat-top-page" class="stats-card-detail">—</p>
+          </article>
+        </div>
+
+        <section class="stats-section">
+          <h2>Recent visits</h2>
+          <div class="stats-table-wrap">
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>Time (Melbourne)</th>
+                  <th>IP</th>
+                  <th>Page</th>
+                  <th>Location</th>
+                  <th>Referrer</th>
+                  <th>Browser / OS</th>
+                </tr>
+              </thead>
+              <tbody id="stats-recent-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="stats-section">
+          <h2>Visitors by IP</h2>
+          <div class="stats-table-wrap">
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>IP</th>
+                  <th>Visits</th>
+                  <th>Country</th>
+                  <th>First seen</th>
+                  <th>Last seen</th>
+                  <th>Last page</th>
+                </tr>
+              </thead>
+              <tbody id="stats-ip-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="stats-section">
+          <h2>Pages</h2>
+          <div class="stats-table-wrap">
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>Page</th>
+                  <th>Views</th>
+                  <th>Share</th>
+                  <th>Last visited</th>
+                </tr>
+              </thead>
+              <tbody id="stats-page-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p><a href="../index.html">&larr; Back to homepage</a></p>
+    <p>&copy; ICON Lab. All rights reserved.</p>
+  </footer>
+
+  <script src="../js/analytics-config.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/admin-stats.js"></script>
+</body>
+</html>
