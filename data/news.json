@@ -32,7 +32,7 @@
     {
       "date": "2025",
       "title": "Junlin Wang Wins AI Competition Award",
-      "excerpt": "Junlin Wang received an award at an AI competition for his innovative research work.",
+      "excerpt": "Junlin places 2nd in the Regional Final of the WorldQuant International Quant Championship 2025 and represents Australia at the Global Final.",
       "slug": "junlin-ai-competition-award"
     },
     {
@@ -48,6 +48,12 @@
       "slug": "2024-songbo-best-paper-award"
     },
     {
+      "date": "2025",
+      "title": "Yihai Fang Receives Outstanding Supervision Award",
+      "excerpt": "Yihai receives the 2025 Outstanding Supervision Award from the Monash Department of Civil and Environmental Engineering.",
+      "slug": "2024-yihai-supervision-award"
+    },
+    {
       "date": "2024",
       "title": "The Monash-TUM collaboration wins the \"Best Paper Award\" at the 2024 EC3 conference",
       "excerpt": "A Monash–TUM collaboration received the EC3 Best Paper Award for work on knowledge graph-enhanced computer vision for concrete pouring monitoring.",
@@ -55,14 +61,8 @@
     },
     {
       "date": "2024",
-      "title": "Yihai Fang Receives Supervision Award",
-      "excerpt": "Dr. Yihai Fang was recognised with a Supervision Award for excellence in research student supervision.",
-      "slug": "2024-yihai-supervision-award"
-    },
-    {
-      "date": "2023",
-      "title": "Yihai Fang Receives Research Excellence Award",
-      "excerpt": "Dr. Yihai Fang was awarded the Research Excellence Award for outstanding research contributions.",
+      "title": "Yihai Fang Receives Award for Excellence in Research",
+      "excerpt": "Yihai receives the 2024 Award for Excellence in Research from the Monash Department of Civil and Environmental Engineering.",
       "slug": "2023-yihai-research-excellence-award"
     }
   ]
