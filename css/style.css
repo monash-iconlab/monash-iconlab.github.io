@@ -184,33 +184,6 @@ main {
   color: var(--text-muted);
 }
 
-.section-teaser {
-  display: block;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.25rem;
-  text-decoration: none;
-  color: inherit;
-  transition: border-color 0.2s, border-width 0.2s, background 0.2s;
-}
-
-.section-teaser:hover {
-  border: 2px solid var(--accent);
-  background: var(--bg-alt);
-}
-
-.section-teaser-text {
-  margin: 0 0 0.75rem;
-  color: var(--text-primary);
-}
-
-.section-teaser-link {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--accent);
-}
-
 .section-subtitle {
   margin: 2rem 0 0.75rem;
   font-size: 1.125rem;
