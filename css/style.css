@@ -178,6 +178,78 @@ main {
   color: var(--logo-blue);
 }
 
+.section-intro {
+  margin: -0.75rem 0 1.5rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.section-teaser {
+  display: block;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, border-width 0.2s, background 0.2s;
+}
+
+.section-teaser:hover {
+  border: 2px solid var(--accent);
+  background: var(--bg-alt);
+}
+
+.section-teaser-text {
+  margin: 0 0 0.75rem;
+  color: var(--text-primary);
+}
+
+.section-teaser-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.section-subtitle {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.section-subtitle:first-child {
+  margin-top: 0;
+}
+
+.section-body p {
+  margin: 0 0 1rem;
+  color: var(--text-primary);
+}
+
+.section-body ul {
+  margin: 0 0 1rem 1.25rem;
+  padding: 0;
+  color: var(--text-primary);
+}
+
+.section-body li {
+  margin-bottom: 0.5rem;
+}
+
+.section-body ul ul {
+  margin: 0.5rem 0 0.25rem 1.25rem;
+}
+
+.section-body a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.section-body a:hover {
+  text-decoration: underline;
+}
+
 /* About */
 .about-institution {
   margin: 0 0 0.5rem;
@@ -568,6 +640,10 @@ main {
   margin-bottom: 0.5rem;
 }
 
+.page-content ul ul {
+  margin: 0.5rem 0 0.25rem 1.25rem;
+}
+
 .page-content a {
   color: var(--accent);
   text-decoration: none;
@@ -584,12 +660,12 @@ main {
 }
 
 .news-article-figure {
-  width: 50%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
 }
 
 .news-article-figure--wide {
-  width: min(100%, 820px);
+  width: 100%;
 }
 
 .news-article-image {
@@ -605,6 +681,45 @@ main {
   font-size: 0.9rem;
   color: var(--text-muted);
   text-align: center;
+}
+
+.facilities-section {
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.facilities-section:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.facilities-gallery {
+  display: grid;
+  gap: 1.5rem;
+  margin: 1.5rem 0 0;
+}
+
+.facilities-gallery--pair {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.facilities-gallery--pair .facilities-figure--wide {
+  grid-column: 1 / -1;
+}
+
+.facilities-figure {
+  margin: 0;
+}
+
+.facilities-figure-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
 }
 
 .project-meta {
@@ -995,6 +1110,10 @@ main {
 
 @media (max-width: 768px) {
   .stats-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .facilities-gallery--pair {
     grid-template-columns: 1fr;
   }
 }
