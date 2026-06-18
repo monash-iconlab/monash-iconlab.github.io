@@ -27,6 +27,12 @@
       "slug": "remote-virtual-building-inspections"
     },
     {
+      "title": "Field Data Collation to support real-time operational management",
+      "excerpt": "Funded by the Building 4.0 CRC.",
+      "period": "2020–2021",
+      "slug": "field-data-collation"
+    },
+    {
       "title": "Development of crowdsourcing technology for pavement condition assessment including the use of smart mobile phones",
       "excerpt": "Funded by the ARC SPARC Hub.",
       "period": "2020–2024",
@@ -37,12 +43,6 @@
       "excerpt": "Funded by the ARC SPARC Hub.",
       "period": "2020–2024",
       "slug": "smart-sensing-road-safety"
-    },
-    {
-      "title": "Field Data Collation to support real-time operational management",
-      "excerpt": "Funded by the Building 4.0 CRC.",
-      "period": "2020–2021",
-      "slug": "field-data-collation"
     }
   ]
 }

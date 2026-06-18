@@ -2,20 +2,19 @@
   "news": [
     {
       "date": "06/2026",
-      "title": "ICON Lab Presents at ISARC 2026",
-      "excerpt": "ICON Lab members presented research at the International Symposium on Automation and Robotics in Construction (ISARC) 2026.",
-      "slug": "2026-06-isarc-presentations"
+      "title": "ICON Lab attends ISARC26 (International Symposium on Automation and Robotics in Construction) at the National University of Singapore (NUS)",
+      "headingOnly": true
     },
     {
       "date": "06/2026",
-      "title": "Leo Yu Receives Best Teaching Assistant Award",
-      "excerpt": "Leo Yu was recognised with a Best Teaching Assistant award for outstanding contribution to teaching.",
+      "title": "Leo wins the Department of Civil and Environmental Engineering 'Best TA Award'",
+      "excerpt": "Leo Yu was recognised with the Department of Civil and Environmental Engineering Best Teaching Assistant Award.",
       "slug": "2026-06-leo-best-ta-award"
     },
     {
       "date": "05/2026",
-      "title": "ICON Lab Supports Monash Engineering Specialisation Event",
-      "excerpt": "On 6 May 2026, ICON Lab supported the Monash University Engineering Faculty Specialisation Event and presented research combining mixed reality with crane operations.",
+      "title": "ICON Lab's crane lift simulator draws strong interest at the Faculty of Engineering Specialisation Selection Showcase Event",
+      "excerpt": "ICON Lab presented its crane lift simulator at the Faculty of Engineering Specialisation Selection Showcase Event.",
       "slug": "2026-05-monash-engineering-specialisation-event"
     },
     {
@@ -38,15 +37,21 @@
     },
     {
       "date": "2025",
-      "title": "ICON Lab Receives CIC Innovation Award (Merit)",
-      "excerpt": "ICON Lab was awarded a Merit at the CIC Innovation Awards 2025.",
-      "slug": "2025-cic-innovation-award-merit"
+      "title": "Pavement roughness monitoring research featured in ABC interview and 7 News",
+      "excerpt": "ICON Lab pavement roughness monitoring research was featured in an ABC Conversation Hour interview and a 7 News report.",
+      "slug": "2025-pavement-roughness-abc-7news"
+    },
+    {
+      "date": "2025",
+      "title": "ICON Lab wins the 2025 Construction Innovation Award (International Merit) from the Hong Kong Construction Industry Council (CIC)",
+      "excerpt": "Songbo Hu received the International Merit award in Hong Kong on behalf of ICON Lab.",
+      "slug": "2024-songbo-best-paper-award"
     },
     {
       "date": "2024",
-      "title": "Songbo Hu Receives Best Paper Award",
-      "excerpt": "Alumnus Songbo Hu was honoured with a Best Paper Award for his research contributions.",
-      "slug": "2024-songbo-best-paper-award"
+      "title": "The Monash-TUM collaboration wins the \"Best Paper Award\" at the 2024 EC3 conference",
+      "excerpt": "A Monash–TUM collaboration received the EC3 Best Paper Award for work on knowledge graph-enhanced computer vision for concrete pouring monitoring.",
+      "slug": "2024-ec3-best-paper-award"
     },
     {
       "date": "2024",

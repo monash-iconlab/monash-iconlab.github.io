@@ -65,6 +65,14 @@
       if (!list) return;
       var items = data.news || data;
       list.innerHTML = items.map(function (item) {
+        if (item.headingOnly) {
+          return (
+            '<article class="news-card news-card--static">' +
+            '<p class="news-date">' + escapeHtml(item.date || '') + '</p>' +
+            '<h3 class="news-title">' + escapeHtml(item.title) + '</h3>' +
+            '</article>'
+          );
+        }
         var href = item.url || '/news/' + (item.slug || item.id || '') + '.html';
         return (
           '<a class="news-card" href="' + escapeAttr(href) + '">' +
