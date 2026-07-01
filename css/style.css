@@ -609,6 +609,11 @@ main {
   padding: 0;
 }
 
+.page-content ol {
+  margin: 0 0 1rem 1.25rem;
+  padding: 0 0 0 1.25rem;
+}
+
 .page-content li {
   margin-bottom: 0.5rem;
 }
@@ -629,7 +634,11 @@ main {
 .news-article-gallery {
   display: grid;
   gap: 1.5rem;
-  margin: 1.5rem 0 0;
+  margin: 1.5rem 0;
+}
+
+.news-article-gallery--quad {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .news-article-figure {
@@ -1087,6 +1096,10 @@ main {
   }
 
   .facilities-gallery--pair {
+    grid-template-columns: 1fr;
+  }
+
+  .news-article-gallery--quad {
     grid-template-columns: 1fr;
   }
 }
