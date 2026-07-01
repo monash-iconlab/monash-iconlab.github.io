@@ -638,7 +638,11 @@ main {
 }
 
 .news-article-gallery--quad {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.news-article-gallery--quad .news-article-figure {
+  min-width: 0;
 }
 
 .news-article-figure {
@@ -1098,7 +1102,9 @@ main {
   .facilities-gallery--pair {
     grid-template-columns: 1fr;
   }
+}
 
+@media (max-width: 540px) {
   .news-article-gallery--quad {
     grid-template-columns: 1fr;
   }
