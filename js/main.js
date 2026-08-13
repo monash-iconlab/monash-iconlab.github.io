@@ -31,26 +31,87 @@
 
   // Team section is static HTML in index.html (Yihai Fang row + 3-person row)
 
-  // Load and render projects from data/projects.json
+  // Load and render research streams / projects from data/projects.json
   fetch('data/projects.json', { cache: 'no-store' })
     .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
     .then(function (data) {
       var list = document.getElementById('projects-list');
       if (!list) return;
-      var items = data.projects || data;
-      list.innerHTML = items.map(function (item) {
+
+      function renderProjectCard(item) {
         var href = item.url || '/projects/' + (item.slug || item.id || '') + '/';
         var isExternal = /^https?:\/\//.test(href);
         var linkAttrs = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+        var imageHtml = '';
+        if (item.image) {
+          imageHtml =
+            '<img class="project-card-image" src="' + escapeAttr(resolve(item.image)) + '"' +
+            ' alt="' + escapeAttr(item.imageAlt || item.title || '') + '"' +
+            ' loading="lazy">';
+        }
         return (
           '<a class="project-card" href="' + escapeAttr(href) + '"' + linkAttrs + '>' +
           (item.period ? '<p class="project-period">' + escapeHtml(item.period) + '</p>' : '') +
           '<h3 class="project-title">' + escapeHtml(item.title) + '</h3>' +
           '<p class="project-excerpt">' + escapeHtml(item.excerpt || '') + '</p>' +
+          imageHtml +
           '<span class="project-link-text">Read more &rarr;</span>' +
           '</a>'
         );
-      }).join('');
+      }
+
+      function renderStream(stream) {
+        var variant = stream.variant ? ' research-stream--' + stream.variant : '';
+        var width = stream.width === 'half' ? ' research-stream--half' : '';
+        var projects = stream.projects || [];
+        var gridClass = projects.length > 1 ? 'research-stream-projects research-stream-projects--pair' : 'research-stream-projects';
+        return (
+          '<article class="research-stream' + width + variant + '">' +
+          '<h3 class="research-stream-title">' + escapeHtml(stream.title) + '</h3>' +
+          '<div class="' + gridClass + '">' +
+          projects.map(renderProjectCard).join('') +
+          '</div>' +
+          '</article>'
+        );
+      }
+
+      var streams = data.streams;
+      if (!streams || !streams.length) {
+        // Backward-compatible flat list
+        var items = data.projects || data;
+        list.innerHTML = '<div class="research-streams">' + items.map(function (item) {
+          return '<article class="research-stream">' + renderProjectCard(item) + '</article>';
+        }).join('') + '</div>';
+        return;
+      }
+
+      var html = '';
+      var i = 0;
+      while (i < streams.length) {
+        var stream = streams[i];
+        if (stream.row === 'paired') {
+          var pair = [stream];
+          if (streams[i + 1] && streams[i + 1].row === 'paired') {
+            pair.push(streams[i + 1]);
+            i += 2;
+          } else {
+            i += 1;
+          }
+          html += '<div class="research-streams-row research-streams-row--pair">' +
+            pair.map(renderStream).join('') +
+            '</div>';
+        } else if (stream.row === 'solo' && stream.width === 'half') {
+          html += '<div class="research-streams-row research-streams-row--solo">' +
+            renderStream(stream) +
+            '</div>';
+          i += 1;
+        } else {
+          html += renderStream(stream);
+          i += 1;
+        }
+      }
+
+      list.innerHTML = '<div class="research-streams">' + html + '</div>';
     })
     .catch(function () {
       var list = document.getElementById('projects-list');

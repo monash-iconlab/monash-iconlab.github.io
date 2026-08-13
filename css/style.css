@@ -418,22 +418,69 @@ main {
   margin: 0;
 }
 
-/* Projects list */
+/* Research streams and projects */
 .projects-list {
+  display: block;
+}
+
+.research-streams {
   display: flex;
   flex-direction: column;
+  gap: 1.25rem;
+}
+
+.research-streams-row {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.research-streams-row--pair {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.research-streams-row--solo {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.research-streams-row--solo .research-stream {
+  grid-column: 1;
+}
+
+.research-stream {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.research-stream-title {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.research-stream-projects {
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 1rem;
 }
 
+.research-stream-projects--pair {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .project-card {
-  display: block;
-  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-page);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 1.25rem;
+  padding: 1rem;
   text-decoration: none;
   color: inherit;
   transition: border-color 0.2s, border-width 0.2s, background 0.2s;
+  min-width: 0;
 }
 
 .project-card:hover {
@@ -449,19 +496,30 @@ main {
 
 .project-title {
   margin: 0 0 0.35rem;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--accent);
 }
 
 .project-excerpt {
-  margin: 0;
+  margin: 0 0 0.75rem;
   font-size: 0.9rem;
   color: var(--text-muted);
 }
 
+/* Landscape thumbnails ~1.5x team photo width, same height (aspect 3:2) */
+.project-card-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 6px;
+  margin: 0 0 0.75rem;
+  background: var(--bg-alt);
+}
+
 .project-link-text {
-  margin-top: 0.5rem;
+  margin-top: auto;
   font-size: 0.875rem;
   color: var(--accent);
 }
@@ -901,6 +959,16 @@ main {
 
   .team-row-three {
     grid-template-columns: 1fr;
+  }
+
+  .research-streams-row--pair,
+  .research-streams-row--solo,
+  .research-stream-projects--pair {
+    grid-template-columns: 1fr;
+  }
+
+  .research-streams-row--solo .research-stream {
+    grid-column: auto;
   }
 
 }

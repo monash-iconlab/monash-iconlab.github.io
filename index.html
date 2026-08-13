@@ -22,7 +22,7 @@
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#team">Team</a></li>
-        <li><a href="#projects">Projects</a></li>
+        <li><a href="#research">Research</a></li>
         <li><a href="#facilities">Facilities</a></li>
         <li><a href="#news">News</a></li>
         <li><a href="#join-us">Join Us</a></li>
@@ -188,12 +188,12 @@
       </div>
     </section>
 
-    <section id="projects" class="section section-projects">
+    <section id="research" class="section section-projects">
       <div class="container">
-        <h2 class="section-title">Projects</h2>
+        <h2 class="section-title">Research Streams and Projects</h2>
         <div id="projects-list" class="projects-list">
-          <!-- Projects loaded from data/projects.json by main.js -->
-          <p class="projects-loading">Loading projects…</p>
+          <!-- Research streams loaded from data/projects.json by main.js -->
+          <p class="projects-loading">Loading research streams…</p>
         </div>
       </div>
     </section>
@@ -201,12 +201,42 @@
     <section id="facilities" class="section section-facilities">
       <div class="container">
         <h2 class="section-title">Facilities</h2>
-        <div class="news-list">
-          <a class="news-card" href="facilities.html">
-            <h3 class="news-title">Visualisation Lab &amp; Construction Robotics Lab</h3>
-            <p class="news-excerpt">Our labs at Monash Clayton support research in 3D sensing, drones, VR/MR, immersive visualisation, and collaborative construction robotics.</p>
-            <span class="news-link-text">Read more &rarr;</span>
-          </a>
+        <div class="research-streams">
+          <div class="research-streams-row research-streams-row--pair">
+            <article class="research-stream">
+              <h3 class="research-stream-title">Construction Robotics Lab</h3>
+              <div class="research-stream-projects">
+                <a class="project-card" href="facilities/construction-robotics-lab.html">
+                  <h3 class="project-title">Collaborative robots &amp; automated structural assembly</h3>
+                  <p class="project-excerpt">UR10e arms, MiR100 mobile robots, and an ABB industrial robot on a linear rail with a 3-metre turntable for full-scale assembly research.</p>
+                  <img
+                    class="project-card-image"
+                    src="images/facilities/robotics-human-robot-collaboration.png"
+                    alt="Researcher collaborating with a UR10e robot in the Construction Robotics Lab"
+                    loading="lazy"
+                  >
+                  <span class="project-link-text">Read more &rarr;</span>
+                </a>
+              </div>
+            </article>
+
+            <article class="research-stream">
+              <h3 class="research-stream-title">Visualisation Lab</h3>
+              <div class="research-stream-projects">
+                <a class="project-card" href="facilities/visualisation-lab.html">
+                  <h3 class="project-title">3D sensing, drones, VR/MR &amp; immersive visualisation</h3>
+                  <p class="project-excerpt">Terrestrial and handheld scanners, DJI drones, Meta Quest / HTC Vive / Varjo XR systems, and a 180-inch 4K screen wall at Monash Clayton.</p>
+                  <img
+                    class="project-card-image"
+                    src="images/facilities/visualisation-screen-wall.png"
+                    alt="Researchers using VR and the immersive 4K screen wall in the Visualisation Lab"
+                    loading="lazy"
+                  >
+                  <span class="project-link-text">Read more &rarr;</span>
+                </a>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
